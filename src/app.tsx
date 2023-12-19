@@ -1,12 +1,35 @@
 import React, { FunctionComponent } from 'react';
-
 import PokemonList from './pages/pokemon-list';
-  
+import PokemonDetail from './pages/pokemon-detail';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import PageNotFound from './pages/page-not-found';
+import PokemonEdit from './pages/pokemon-edit';
+import PokemonPost from './pages/pokemon-add';
+
+
 const App: FunctionComponent = () => {
 
 
  return (
-   <PokemonList />
+  <Router>
+    <div>
+      {/*La barre de navigation commun à toutes les pages*/}
+      <nav>
+        <div className="nav-wraper teal">
+          <Link to="/" className="brand-logo center">Pokédex</Link>
+        </div>
+      </nav>
+      {/*Le système de gestion des routes de notre applicaton*/}
+      <Switch>
+        <Route exact path="/" component={PokemonList} />
+        <Route exact path="/pokemons" component={PokemonList} />
+               <Route exact path="/pokemon/post" component={PokemonPost} />
+ <Route exact path="/pokemon/edit/:id" component={PokemonEdit} />
+        <Route path="/pokemons/:id" component={PokemonDetail} />
+        <Route component={PageNotFound} />
+      </Switch>
+    </div>
+  </Router>
   
  )
 }
